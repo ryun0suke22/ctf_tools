@@ -1,5 +1,5 @@
-
 # build
+touch .env
 docker-compose build
 # gen container
-docker-compose run zsh
+docker-compose run kali-linux
