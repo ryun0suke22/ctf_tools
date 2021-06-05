@@ -1,0 +1,17 @@
+version: '3'
+services:
+  kali-linux:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: ctf-kali
+    volumes:
+      - ./test:/test
+    ports:
+      - 20021:20022
+    env_file:
+      - .env
+    tty: true
+    stdin_open: true
+    command: >
+      /bin/zsh
