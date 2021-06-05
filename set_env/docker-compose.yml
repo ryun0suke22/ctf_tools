@@ -7,10 +7,12 @@ services:
     container_name: ctf-kali
     volumes:
       - /Users/r.murakami/Works:/root/Works
-    ports:
-      - 20021:20022
+      - /tmp/.X11-unix:/tmp/.X11-unix
     env_file:
       - .env
+    environment:
+      # for xserver with xquartz
+      - DISPLAY=${IP}:0
     tty: true
     stdin_open: true
     command: >
