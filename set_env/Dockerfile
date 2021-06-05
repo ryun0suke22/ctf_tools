@@ -49,6 +49,8 @@ RUN apt-get install -y \
     vim-gtk3 \
     git \
     tmux \
+    xserver-xorg \
+    xsel \
     zsh
 
 # Setup gdb-peda
@@ -71,6 +73,5 @@ RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
     ~/.fzf/install
-
 
 CMD ["/bin/zsh"]
