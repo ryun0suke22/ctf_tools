@@ -6,7 +6,9 @@ services:
       dockerfile: ./Dockerfile
     container_name: ctf-kali
     volumes:
-      - /Users/r.murakami/Works:/root/Works
+      - $HOME/Works:/root/Works
+      - $HOME/Downloads:/root/Downloads
+      - $HOME/.ssh:/root/.ssh
       - /tmp/.X11-unix:/tmp/.X11-unix
     env_file:
       - .env
