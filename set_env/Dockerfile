@@ -67,10 +67,36 @@ RUN  git clone https://github.com/pyenv/pyenv.git ~/.pyenv && \
 
 WORKDIR /root
 
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma-continuum/zinit/master/doc/install.sh)"
 RUN git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
     ~/.fzf/install
 
+# set locale
+RUN locale-gen ja_JP.UTF-8 && \
+  localedef -f UTF-8 -i ja_JP ja_JP
+
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:jp
+ENV LC_ALL ja_JP.UTF-8
+
+ENV GIT_USER ryunosuke22
+ENV GIT_TOKEN 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
+RUN git clone -b kali-linux \
+    https://${GIT_USER}:${GIT_TOKEN}@github.com/ryun0suke22/dotfiles.git && \
+        cd dotfiles && ./link.sh
+
+RUN apt-get -y update && \
+    apt-get install -y man strace ltrace netcat-traditional bsdmainutils socat gdbserver \
+    file procps
+
+RUN cd ~/ && git clone https://github.com/scwuaptx/Pwngdb.git && cp -f ~/Pwngdb/.gdbinit ~/
+
+## CTF tools
+# one-gadget RCE finder
+RUN gem install one_gadget
+RUN /root/.pyenv/shims/pip install pwntools
+# TODO; vim plug install (color scheme not found)
+# RUN vim -E +PlugInstall +visual +qall +PlugUpdate
